@@ -1,0 +1,19 @@
+<openerp>
+	<data>
+        <record id="view_inheritance_workcenter" model="ir.ui.view">
+            <field name="name">first.view.inheritance</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+            <field name="arch" type="xml">
+			<!-- Adding fields width,edge space and height -->
+				<xpath expr = "/form/group" position = "inside">
+					<group >
+						<field name = "max_height" />
+						<field name = "max_width" />																					
+						<field name = "edge_space" />
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

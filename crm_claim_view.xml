@@ -1,0 +1,13 @@
+<openerp>
+	<data>
+        <record id="CRM - Claims Form" model="ir.ui.view">
+            <field name="name">first.view.inheritance</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view" />
+            <field name="arch" type="xml">
+            
+				
+			</field>
+		</record>
+		</data>
+		</openerp>

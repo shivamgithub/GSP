@@ -1,0 +1,19 @@
+<openerp>
+	<data>
+
+		<record id="sale_order_crm_field" model="ir.ui.view">
+            <field name="name">sale.order.crm.field</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+            <!-- form_view_ref used for which view to open (of object crm.lead) when clicked on many2one field -->
+				<xpath expr="//field[@name='client_order_ref']" position= "after">
+					<field name="opportunity" context="{'form_view_ref': 'crm.crm_case_form_view_oppor'}"/>
+					<field name="is_manufacture"/>
+					<widget type="sale_order_line"/>
+				</xpath>
+			</field>
+		</record>
+		</data>
+</openerp>
+		 		

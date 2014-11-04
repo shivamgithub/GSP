@@ -1,0 +1,18 @@
+<openerp>
+	<data>
+        <record id="view_inheritance_product" model="ir.ui.view">
+            <field name="name">first.view.inheritance</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+			<!-- Adding fields width and height -->
+				<xpath expr = "/form/sheet/notebook/page[@string='Procurements']/group[@name='procurement']" position = "inside">
+					<group col="4">
+						<field name = "product_width" />
+						<field name = "product_height" />																					
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

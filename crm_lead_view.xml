@@ -1,0 +1,60 @@
+<openerp>
+	<data>
+        <record id="view_inheritance_crm" model="ir.ui.view">
+            <field name="name">first.view.inheritance</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+            <field name="arch" type="xml">
+            <!-- changing the view shifting the ref field from lead page to below categ_ids field -->
+				<xpath expr="//field[@name='ref']" position= "replace"></xpath>
+				<xpath expr="//field[@name='categ_ids']" position= "after">
+					<field name="ref"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="view_inheritance_sale_crm" model="ir.ui.view">
+            <field name="name">view.inheritance</field>
+            <field name="model">crm.make.sale</field>
+            <field name="inherit_id" ref="sale_crm.view_crm_make_sale" />
+            <field name="arch" type="xml">
+            <!-- changing the view of the wizard crm.make.sale ... making boolean close invisible -->
+				<xpath expr="//field[@name='close']" position= "attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		
+		
+
+		<!-- Making user_id required for a phonecall-->
+		 <record id="view_inheritance_cr" model="ir.ui.view">
+            <field name="name">first.view.inheritance</field>
+            <field name="model">crm.phonecall</field>
+            <field name="inherit_id" ref="crm.crm_case_phone_form_view" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='user_id']" position= "attributes">
+					<attribute name="required">1</attribute>
+				</xpath>
+				
+				<xpath expr="//field[@name='partner_id']" position= "attributes">
+					<attribute name="required">1</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- Making user_id required for a meeting-->
+		<record id="view_inheritance_c" model="ir.ui.view">
+            <field name="name">first.view.inheritance</field>
+            <field name="model">crm.meeting</field>
+            <field name="inherit_id" ref="base_calendar.view_crm_meeting_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='user_id']" position= "attributes">
+					<attribute name="required">1</attribute>
+				</xpath>
+			</field>
+		</record>		
+	</data>
+</openerp>
+		 		
