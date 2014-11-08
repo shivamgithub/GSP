@@ -22,29 +22,50 @@ openerp.gsp_customizations= function (instance) {
     instance.web.form.custom_widgets.add('sale_order_line', 'instance.gsp_customizations.sale_order_line');
 
     instance.web.ListView.include({
-    	do_add_record:function(){
-    		var self = this;
-    		try{	
-	    		if (!self.dataset.parent_view.datarecord.is_manufacture) {
-	                this.$el.find('table:first').show();
-	                this.$el.find('.oe_view_nocontent').remove();
-	                this.start_edition().then(function(){
-	                    var fields = self.editor.form.fields;
-	                    self.editor.form.fields_order.some(function(field){
-	                        if (fields[field].$el.is(':visible')){
-	                            fields[field].$el.find("input").select();
-	                            return true;
-	                        }
-	                    });
-	                });
-	            }
-	            else {
-	            	this._super();
-	            }
-    		}
-    		catch(exception){
-    			this._super();
-    		}
-    	}
+        do_add_record: function () {
+            if (this.dataset.model == "sale.order.line"){
+                    if (this.dataset.parent_view.datarecord.is_manufacture)
+                    {
+                            d = null;
+                    }
+                    else {
+                            d = "bottom";
+                    }
+            }
+            else {
+                    d = this.editable();
+            }
+            if (d) {
+                this._super.apply(this, arguments);
+            } else {
+                var self = this;
+                var pop = new instance.web.form.SelectCreatePopup(this);
+                pop.select_element(
+                    self.o2m.field.relation,
+                    {
+                        title: _t("Create: ") + self.o2m.string,
+                        initial_view: "form",
+                        alternative_form_view: self.o2m.field.views ? self.o2m.field.views["form"] : undefined,
+                        create_function: function(data, options) {
+                            return self.o2m.dataset.create(data, options).done(function(r) {
+                                self.o2m.dataset.set_ids(self.o2m.dataset.ids.concat([r]));
+                                self.o2m.dataset.trigger("dataset_changed", r);
+                            });
+                        },
+                        read_function: function() {
+                            return self.o2m.dataset.read_ids.apply(self.o2m.dataset, arguments);
+                        },
+                        parent_view: self.o2m.view,
+                        child_name: self.o2m.name,
+                        form_view_options: {'not_interactible_on_create':true}
+                    },
+                    self.o2m.build_domain(),
+                    self.o2m.build_context()
+                );
+                pop.on("elements_selected", self, function() {
+                    self.o2m.reload_current_view();
+                });
+            }
+        },
     });
 };
