@@ -1,11 +1,11 @@
-openerp.gsp_customizations= function (instance) {
+openerp.GSP= function (instance) {
     var _t = instance.web._t;
     var _lt = instance.web._lt;
     var QWeb = instance.web.qweb;
     
-    instance.web.gsp_customizations = instance.web.gsp_customizations|| {};
+    instance.web.GSP = instance.web.GSP|| {};
 
-    instance.gsp_customizations.sale_order_line = instance.web.form.FormWidget.extend({
+    instance.GSP.sale_order_line = instance.web.form.FormWidget.extend({
     
 	    init: function (field_manager, node) {
 		    this._super(field_manager, node);
@@ -19,11 +19,11 @@ openerp.gsp_customizations= function (instance) {
 			 });
 		},
     });
-    instance.web.form.custom_widgets.add('sale_order_line', 'instance.gsp_customizations.sale_order_line');
+    instance.web.form.custom_widgets.add('sale_order_line', 'instance.GSP.sale_order_line');
 
     instance.web.ListView.include({
-        do_add_record: function () {
-            if (this.dataset.model == "sale.order.line"){
+    	do_add_record: function () {
+    		if (this.dataset && this.dataset.model == "sale.order.line"){
                     if (this.dataset.parent_view.datarecord.is_manufacture)
                     {
                             d = null;
@@ -37,7 +37,8 @@ openerp.gsp_customizations= function (instance) {
             }
             if (d) {
                 this._super.apply(this, arguments);
-            } else {
+            } 
+            else {
                 var self = this;
                 var pop = new instance.web.form.SelectCreatePopup(this);
                 pop.select_element(
