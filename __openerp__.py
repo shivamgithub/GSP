@@ -28,10 +28,9 @@
    """,
     'website': '',
     'images' : [], #'/images/image_name.png'
-    'depends' : ['base','sale','sale_crm','crm_claim','mrp'],#account_analytic_analysis
-    'data': ['crm_lead_view.xml','edi/mail_template.xml','sale_order.xml','product_view.xml','mrp_view.xml'
+    'depends' : ['base','crm','sale','sale_crm','crm_claim'],#account_analytic_analysis
+    'data': ['crm_lead_view.xml','edi/mail_template.xml','sale_order.xml'
              ],
-     'js': ['static/src/js/sale_order_line.js'], 
     'demo': [],
     'test': [],
     'installable': True,

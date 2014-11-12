@@ -8,7 +8,8 @@
             <!-- changing the view shifting the ref field from lead page to below categ_ids field -->
 				<xpath expr="//field[@name='ref']" position= "replace"></xpath>
 				<xpath expr="//field[@name='categ_ids']" position= "after">
-					<field name="ref"/>
+					<field name="ref" readonly='1'/> <!--on_change="onchange_ref_id(ref)"/>-->
+					<field name="planned_revenue1" invisible='1'/>
 				</xpath>
 			</field>
 		</record>
@@ -25,6 +26,15 @@
 			</field>
 		</record>
 		
+		<!-- removing create quotation button after mark won/lost -->
+		<record id="view_inheritance_sale_crm_button" model="ir.ui.view">
+            <field name="name">view.inheritance</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+            <field name="arch" type="xml">
+            <xpath expr="//button[@string='Create Quotation']" position= "replace"></xpath>
+			</field>
+		</record>
 		
 		
 
